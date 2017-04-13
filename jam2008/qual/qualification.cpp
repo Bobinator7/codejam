@@ -1,20 +1,17 @@
 #include <iostream>
 #include <unordered_map>
 
-//#define MAX_ENGINES 10
-#define MAX_QUERIES 100
-
 using namespace std;
 
 int main(int argc, char **argv) {
   
-  // predef vars
-  int t, s, q, res=0;
-  unordered_map<string,int> str_s;
-  int query[MAX_QUERIES];
+  // data set parameters
+  int t, s, q;
 
-  int count=0;
+  // temporary vars (TODO: move into for loop scope to omit reset code)
+  int res=0,count=0;
   unordered_map<string,int> used;
+  unordered_map<string,int> str_s;
   string temp;
 
   cin >> t;
@@ -34,20 +31,14 @@ int main(int argc, char **argv) {
     cin.ignore();
     cout << "Queries (" << q << "): " << endl;
     for (int m = 0; m < q; ++m) {
+
       getline(cin, temp);
+
       auto eng_exist = str_s.find(temp);
       auto eng_used = used.find(temp);
-      
-      ///debug
-      //cout << "used:" << endl;
-      //for (auto it = used.begin(); it != used.end(); it++) {
-      //  cout << it->first << " " << it->second << endl;
-      //}
-      //cout << count << endl;
-      ///debug end
-
+      // check if query is a search engine
       if (eng_exist != str_s.end()) {
-        query[m] = eng_exist->second;
+	// check if query is current search engine (last possible option)
 	if (eng_used == used.end()) {
 	  ++count;
           used[temp] = eng_exist->second;
@@ -59,16 +50,13 @@ int main(int argc, char **argv) {
             used[temp] = eng_exist->second;
 	  }
 	}
-      } else {
-        query[m] = s;
-      }
+      } 
     }
-    
-    /// TODO: 1. check if in str_s, 2. check if engine used
-    /// if engine not used add count and add to list
-    /// if count greater equal s inc res and reset count to one and keep current string in used
-    
+
+    // output
     cout << "Case #" << i << ": " << res << endl;
+
+    // reset temporary vars
     res=0;
     count=0;
     used.clear();
