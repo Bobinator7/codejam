@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     // get file info
     cin >> s;
     cin.ignore();
-    cout << "Search engines (" << s << "): " << endl;
+    //cout << "Search engines (" << s << "): " << endl;
     for (int j = 0; j < s; ++j) {
       getline(cin, temp);
       str_s[temp] = j;
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     // get query and process
     cin >> q;
     cin.ignore();
-    cout << "Queries (" << q << "): " << endl;
+    //cout << "Queries (" << q << "): " << endl;
     for (int m = 0; m < q; ++m) {
 
       getline(cin, temp);
@@ -42,13 +42,12 @@ int main(int argc, char **argv) {
 	if (eng_used == used.end()) {
 	  ++count;
           used[temp] = eng_exist->second;
-	} else {
-	  if (count >= s) {
-	    ++res;
-            count = 1;
-            used.clear();
-            used[temp] = eng_exist->second;
-	  }
+	} 
+	if (count >= s) {
+	  ++res;
+          count = 1;
+          used.clear();
+          used[temp] = eng_exist->second;
 	}
       } 
     }
